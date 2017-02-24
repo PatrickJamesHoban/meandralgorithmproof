@@ -21,13 +21,17 @@ class BreadthFirstSearch
     bfs(source_node)
   end
 
-  def shortest_path_to(node)
-    return unless has_path_to?(node)
+  def shortest_path_to(end_node)
+    #checks if you've already been there
+    return unless has_path_to?(end_node)
     path = []
 
-    while(node != @node) do
-      path.unshift(node) # unshift adds the node to the beginning of the array
-      node = @edge_to[node]
+    # while end point is not equal to start point,
+    while(end_node != @node) do
+      # unshift adds the node to the beginning of the array
+      path.unshift(end_node)
+      
+      end_node = @edge_to[end_node]
     end
 
     path.unshift(@node)
@@ -45,25 +49,59 @@ class BreadthFirstSearch
     # First step: Put the source node into a queue and mark it as visited
     queue = []
     queue << node
+    # p "queue"
+    # queue.each do |node|
+    #   puts node
+    # end
+
     @visited << node
+    # p "visited"
+    # @visited.each do |node|
+    #   puts node
+    # end
 
     # Second step: Repeat until the queue is empty:
     # - Remove the least recently added node n
     # - add each of n's unvisited adjacents to the queue and mark them as visited
     while queue.any?
       current_node = queue.shift # remove first element
+      # takes all the adjacents for a starting node
       current_node.adjacents.each do |adjacent_node|
+        # skip adjacent node if it's already been visited.  Keeps the path from going back on itself or revisiting any points.  Prevents it from going back on itself.
         next if @visited.include?(adjacent_node)
+        # 
+        # p "queue"
         queue << adjacent_node
+        # queue.each do |node|
+        #   puts node
+        # end
+        # p "visited"
         @visited << adjacent_node
+        # @visited.each do |node|
+        #   puts node
+        # end
+        # not edge, but just { nodeb: nodea, } maps every single possible path outward from the source node.
         @edge_to[adjacent_node] = current_node
+        # Why does it run this 4 times?
+        # p "edge_to"
+        # @edge_to.each do |key, value|
+        #   puts key
+        #   puts value
+        # end
+        # p @edge_to
+      end
+      p "edge_to"
+      @edge_to.each do |key, value|
+        puts key
+        puts value
+        puts ""
       end
     end
   end
 
   # If we visited the node, so there is a path
   # from our source node to it.
-  def has_path_to?(node)
-    @visited.include?(node)
+  def has_path_to?(end_node)
+    @visited.include?(end_node)
   end
 end
