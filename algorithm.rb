@@ -1,20 +1,28 @@
 # FRIDAY: 
-# FIRST PROVE OUT THAT THIS WORKS
+# FIRST PROVE OUT THAT THIS WORKS - DONE CHECK WOOHOO
 # SECOND MERGE IN FUNCTIONALITY FROM BREADTHFIRSTSEARCH FILE
+require 'set'
 
 class Meandr
-  def initialize(start_point, end_point, interest_points, available_time)
+  def initialize(start_point, end_point, interest_points = [], available_time)
     @source_node = Node.new(start_point)
     @end_node = Node.new(end_point)
     @graph = Graph.new
-    create_edges(self.graph)
+    @interest_points = interest_points
+    create_edges(@graph, @interest_points)
   end
     
-  def create_edges(graph)
+  def create_edges(graph, interest_points)
     interest_points.each do |point1|
-      @nodea = point1
+      # @nodea = point1
+      p "line 18"
+      p point1[:name]
+      p interest_points
       interest_points.each do |point2|
-        @nodea = Node.new(@nodea)
+        p "line 21"
+        p point2[:name]
+        p interest_points
+        @nodea = Node.new(point1)
         @nodeb = Node.new(point2)
         # plug all into array
         # uniq it
@@ -25,14 +33,15 @@ class Meandr
     end
   end
 
-  short_distance = distance(start_point, end_point)
-  total_time = find_extra_time(available_time)
+  # short_distance = distance(start_point, end_point)
+  # total_time = find_extra_time(available_time)
 end
 
 class Node
   attr_accessor :name, :x, :y, :adjacents
   def initialize(args)
     # Set ensures no duplicate routes.
+    # @adjacents = Set.new
     @adjacents = Set.new
     @name = args[:name]
     @x = args[:x]
@@ -82,22 +91,22 @@ interest_points = [
   { name: 'd', x: 3, y: 3 }
 ]
 
-edges = [
-  {points:[nodes[:a],nodes[:b]], distance: 3}
-]
+# edges = [
+#   {points:[nodes[:a],nodes[:b]], distance: 3}
+# ]
 
-p 'a to b'
-p distance(nodes[:a], nodes[:b])
-p 'a to c'
-p distance(nodes[:a], nodes[:c])
-p 'c to d'
-p distance(nodes[:c], nodes[:d])
-p 'a to d'
-p distance(nodes[:a], nodes[:d])
-p 'b to d'
-p distance(nodes[:b], nodes[:d])
-p 'b to c'
-p distance(nodes[:b], nodes[:c])
+# p 'a to b'
+# p distance(nodes[:a], nodes[:b])
+# p 'a to c'
+# p distance(nodes[:a], nodes[:c])
+# p 'c to d'
+# p distance(nodes[:c], nodes[:d])
+# p 'a to d'
+# p distance(nodes[:a], nodes[:d])
+# p 'b to d'
+# p distance(nodes[:b], nodes[:d])
+# p 'b to c'
+# p distance(nodes[:b], nodes[:c])
 
 # PSEUDOCODE 
 # INPUTS: 
