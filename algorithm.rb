@@ -1,3 +1,7 @@
+# FRIDAY: 
+# FIRST PROVE OUT THAT THIS WORKS
+# SECOND MERGE IN FUNCTIONALITY FROM BREADTHFIRSTSEARCH FILE
+
 class Meandr
   def initialize(start_point, end_point, interest_points, available_time)
     @source_node = Node.new(start_point)
